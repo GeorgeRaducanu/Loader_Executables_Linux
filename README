@@ -1,0 +1,20 @@
+// Copyright Raducanu George-Cristian 321CA 2022-2023
+
+Tema 1 - SO Loader de executabile
+
+Descrierea functiei segv_handler:
+
+Daca semnalul nu este SIGSEGV chem default handler-ul
+In remember voi tine minte pointer catre segmentul de date in care este
+adresa mea busita. Voi pargurge toate segmentele si voi verifica si retine
+daca adresa cu probleme este in respectivul segment verificand si daca gasim unul.
+In variabila a stocam indexul paginii la care a avut loc buseala.
+Daca nu am gasit segmentul cu probleme chem default handler-ul.
+Daca am gasit si pagina a fost mapata iarasi chem default handler-ul intrucat nu stiu ce
+sa fac, e vina programatorului, nu a loader-ului.
+Folosesc functia mmap impreuna cu flagurile corespunzatoare pentru a mapa pagina.
+Daca remember->data nu este alocat il voi aloca eu si zeroizez, practic tratez page-fault ul.
+Apoi marchez faptul ca am vizitat aceasta pagina.
+Pentru a afla cat trebuie sa citim determin minimul intre dimensiunea unei pagini si cat mai
+am pana la finalul segmentului. Repozitionam offset-ul si dam read. La final punem protectie
+pe zona de memorie cu care abia am lucrat.
